@@ -6,12 +6,13 @@ import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoute.js";
 import productRoutes from "./routes/productRoutes.js";
 import cors from "cors";
-import path from "path";
+import { corsOptions } from "./config/corsOptions.js";
+/*import path from "path";
 import { fileURLToPath } from "url";
 
 //esmodule fix(deployment bug)
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename);*/
 
 //configure env
 dotenv.config();
@@ -23,7 +24,7 @@ connectDB();
 const app = express();
 
 //middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "./client/build")));
@@ -34,9 +35,9 @@ app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 
 //rest api
-app.use("*", function (req, res) {
+/*app.use("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+});*/
 
 //PORT
 const PORT = process.env.PORT || 8080;
